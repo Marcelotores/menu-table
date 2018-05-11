@@ -19,9 +19,27 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-$this->group(['namespace' => 'Admin'], function() {
+$this->group(['namespace' => 'Admin', 'prefix' => 'admin'], function() {
     $this->resource('produtos', 'ProductController');
     $this->resource('categorias', 'CategoryController');
+
 });
 
+$this->group(['namespace' => 'Admin\Painel', 'prefix' => 'admin/painel'], function() {
+    $this->get('', 'PainelController@index')->name('painel');
+
+});
+
+$this->group(['namespace' => 'Client', 'prefix' => 'pedidos/'], function() {
+    $this->get('', 'PedidoController@index')->name('pedidos.index');
+    $this->get('store', 'PedidoController@store')->name('pedidos.store');
+    $this->get('create', 'PedidoController@create')->name('pedidos.create');
+    
+    $this->get('{id}', 'PedidoController@show')->name('pedidos.show');
+
+    $this->get('create/{id}', 'PedidoController@productsCategory')->name('products.category');
+    
+    
+
+});
 
