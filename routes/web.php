@@ -14,3 +14,14 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+$this->group(['namespace' => 'Admin'], function() {
+    $this->resource('produtos', 'ProductController');
+    $this->resource('categorias', 'CategoryController');
+});
+
+
