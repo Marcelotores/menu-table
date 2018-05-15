@@ -34,7 +34,7 @@
 
         <div class="form-group">
             <label for="description_id">Descrição</label>
-            <input type="texarea" class="form-control" id="description_id" name="description"  placeholder="Descrição do Produto">
+            <input type="text" class="form-control" id="description_id" name="description"  placeholder="Descrição do Produto">
         </div>
 
         <div class="form-group">

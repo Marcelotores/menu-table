@@ -51,17 +51,9 @@ class PedidoController extends Controller
      */
     public function store(Request $request)
     {
-        $user = auth()->user();
+        $doPedido = $this->pedido->doPedido($request);
 
-        $productsForm = $request->all();
-        
-        $pedido = $this->pedido->create([
-            'user_id' => $user->id,
-            'date' => date("Y-m-d "),
-            'total' => 0
-        ]);
-
-        $pedido->products()->attach($productsForm);
+        return redirect()->route('pedidos.create');
         
     }
 

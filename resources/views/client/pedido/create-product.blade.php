@@ -13,6 +13,7 @@
         @empty
         @endforelse
         
+        <br>
         <button class="btn btn-primary">Pronto</button>
     </form>
 

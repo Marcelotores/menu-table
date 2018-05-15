@@ -6,6 +6,19 @@
 
 <h3>Painel de Controle</h3>
 
+    <ul class="list-group">
+        <a href="{{ route('produtos.index') }}" class="list-group-item">Produtos</a>
+    </ul>
+    <ul class="list-group">
+        <a href="{{ route('categorias.index') }}" class="list-group-item">Categorias</a>
+    </ul>
+    <ul class="list-group">
+        <a href="{{ route('user-pedido.index') }}" class="list-group-item">Pedidos</a>
+    </ul>
+
+
+
+<!--
 <div class="row">
     <aside class="col-sm-4">
         <p>Card with image</p>
@@ -20,10 +33,10 @@
                 </p>
             </div>
         </div>
-        <!-- card.// -->
+         
 
     </aside>
-    <!-- col.// -->
+
     <aside class="col-sm-4">
         <p>Card with bottom image</p>
 
@@ -35,16 +48,16 @@
             </div>
             <img class="card-img-bottom" src="http://bootstrap-ecommerce.com/main/images/posts/post3.jpg" alt="Card image cap">
         </div>
-        <!-- card.// -->
+        
 
 
 
     </aside>
 
 </div>
-<!-- row.// -->
 
 
+-->
 
 
 @endsection
