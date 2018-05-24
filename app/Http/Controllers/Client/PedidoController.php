@@ -13,6 +13,7 @@ class PedidoController extends Controller
 {
 
     protected $pedido;
+    private $paginate = 10;
 
     public function __construct(Pedido $pedido) {
         $this->pedido = $pedido;
@@ -27,7 +28,7 @@ class PedidoController extends Controller
     {
         $user = auth()->user()->id;
 
-        $pedidos = $this->pedido->where('user_id', $user)->get();
+        $pedidos = $this->pedido->where('user_id', $user)->paginate($this->paginate);
         return view('client.pedido.index', compact('pedidos'));
     }
 
@@ -51,6 +52,7 @@ class PedidoController extends Controller
      */
     public function store(Request $request)
     {
+
         $doPedido = $this->pedido->doPedido($request);
 
         return redirect()->route('pedidos.create');

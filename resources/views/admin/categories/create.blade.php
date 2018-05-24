@@ -1,10 +1,12 @@
-@extends('templates.admin.template')
+@extends('templates.template')
 
 @section('title', 'Admin')
 
 @section('content')
 
     <h3>Nova Categoria</h3>
+
+    @include('includes.alerts')
 
     <form action="{{ route('categorias.store') }}" method="POST">
     

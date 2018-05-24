@@ -1,4 +1,4 @@
-@extends('templates.client.template')
+@extends('templates.template')
 
 @section('title', 'Pedidos')
 
@@ -41,6 +41,8 @@
         <h3>Você ainda não tem nenhum pedido</h3>
     @endforelse
 </table>
+
+{{ $pedidos->links() }}
 
 <a class="btn btn-primary" href="{{ route('pedidos.create') }}">Pedir</a>
 

@@ -1,4 +1,4 @@
-@extends('templates.client.template')
+@extends('templates.template')
 
 @section('title', 'Pedidos')
 
@@ -19,6 +19,16 @@
     <br>
 
     <b>Usuário {{ $user->name }}</b>
+    <p>Endereço</p>
+    <p>
+
+        @foreach($user->addresses as $u)
+        Rua: {{ $u->rua }} <br>
+        Bairro: {{ $u->bairro }} <br>
+        Número: {{ $u->numero }} <br>
+        Telefone: {{ $u->telefone }} <br>
+        @endforeach
+    </p>
 
 
     <br><br>

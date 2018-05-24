@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ProductRequest;
 use App\Http\Controllers\Controller;
 
 use App\Models\Product;
 use App\Models\Category;
+
+use Gate;
 
 class ProductController extends Controller
 {
@@ -25,6 +28,11 @@ class ProductController extends Controller
     public function index()
     {
         $products = $this->product->all();
+
+        if(Gate::denies('view_product', $products))
+            abort(403, 'Inautorizado!');
+
+        
         return view('admin.products.index', compact('products'));
     }
 
@@ -36,6 +44,10 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::all();
+
+        if(Gate::denies('view_product', Product::class))
+            abort(403, 'Inautorizado!');
+
         return view('admin.products.create', compact('categories'));
     }
 
@@ -45,7 +57,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
 
         $this->product->create($request->all());
@@ -77,6 +89,9 @@ class ProductController extends Controller
 
         $category = Category::find($product->category_id);
 
+        if(Gate::denies('edit_product', $product))
+            abort(403, 'Inautorizado!');
+
         return view('admin.products.edit', compact('product', 'categories', 'category'));
     }
 
@@ -87,7 +102,7 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductRequest $request, $id)
     {
         $product = $this->product->find($id);
 
@@ -104,7 +119,11 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $this->product->destroy($id);
+        $product = $this->product->destroy($id);
+
+        if(Gate::denies('delete_product', $product))
+            abort(403, 'Inautorizado!');
+
         return redirect()->route('produtos.index');
     }
 }

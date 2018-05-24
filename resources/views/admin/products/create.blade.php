@@ -1,10 +1,12 @@
-@extends('templates.admin.template')
+@extends('templates.template')
 
 @section('title', 'Admin')
 
 @section('content')
 
     <h3>Novo Produto</h3>
+
+    @include('includes.alerts')
 
     <form action="{{ route('produtos.store') }}" method="POST">
         @csrf
@@ -34,7 +36,7 @@
 
         <div class="form-group">
             <label for="description_id">Descrição</label>
-            <input type="text" class="form-control" id="description_id" name="description"  placeholder="Descrição do Produto">
+            <textarea class="form-control" id="description_id" name="description"  placeholder="Descrição do Produto"></textarea>
         </div>
 
         <div class="form-group">

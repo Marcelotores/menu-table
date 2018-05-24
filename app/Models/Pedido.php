@@ -36,14 +36,16 @@ class Pedido extends Model
 
         $productsForm = $request->all();
 
-        $prods = Product::find($productsForm);
+
+        //Soma do valor total dos produtos do pedido
+        //$prods = Product::find($productsForm);
 
         $price = 0;
-
+/*
         foreach ($prods as $prod) {
             $price += $prod->price;
         }
-
+*/
         
         $pedido = $this->create([
             'user_id' => $user->id,
@@ -52,10 +54,11 @@ class Pedido extends Model
         ]);
 
         $pedido->products()->attach($productsForm);
-
+        
         $produtos = $pedido->products;
+        
 
-        if (!empty($pedido) && !empty($produtos)) {
+        if (!empty($pedido) && count($produtos)) {
             DB::commit();
             return [
                 'success' => true,

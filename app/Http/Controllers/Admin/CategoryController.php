@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\CategoryRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+
+use Gate;
 
 class CategoryController extends Controller
 {
@@ -23,6 +26,10 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = $this->category->all();
+
+        if(Gate::denies('view_product', $categories))
+        abort(403, 'Inautorizado!');
+
         return view('admin.categories.index', compact('categories'));
     }
 
@@ -33,6 +40,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        if(Gate::denies('view_product', Category::class))
+            abort(403, 'Inautorizado!');
+
         return view('admin.categories.create');
     }
 
@@ -42,7 +52,7 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
         $this->category->create($request->all());
 
@@ -69,6 +79,10 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $category = $this->category->find($id);
+
+        if(Gate::denies('view_product', $category))
+            abort(403, 'Inautorizado!');
+
         return view('admin.categories.edit', compact('category'));
     }
 
@@ -79,7 +93,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
         $category = $this->category->find($id);
 
@@ -96,7 +110,11 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $this->category->destroy($id);
+        $category = $this->category->destroy($id);
+
+        if(Gate::denies('view_product', $category))
+            abort(403, 'Inautorizado!');
+
         return redirect()->route('categorias.index');
     }
 }

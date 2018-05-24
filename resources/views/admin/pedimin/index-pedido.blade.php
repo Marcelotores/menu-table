@@ -1,4 +1,4 @@
-@extends('templates.client.template')
+@extends('templates.template')
 
 @section('title', 'Pedidos')
 
@@ -14,27 +14,9 @@
         <h2>Nenhum pedido pendente!</h2>
     @endforelse
 
-    <!--
+    <br>
 
-    @forelse($pedidos as $pedido)
-    <ul class="list-group">
-        <h5>Pedido {{ $pedido->id }}</h5>   
-        @foreach($pedido->products as $product)
-        <i>
-        {{ $product->name }}
-        </i>
+    {{ $pedidos->links() }}
 
-        @endforeach
-    </ul>
-    @empty
-        <h2>Pedido Atendido!</h2>
-    @endforelse
-
-    <br><br>
-    @if(!empty($pedido->id))
-        <a href="{{ route('pedido-pronto', $pedido->id) }}" class="btn btn-info">Atendido</a>
-    @endif
-
-    -->
 
 @endsection

@@ -11,10 +11,12 @@
 |
 */
 
+
+/*
 Route::get('/', function () {
     return view('welcome');
 });
-
+*/
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -32,12 +34,20 @@ $this->group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'auth
 
 });
 
-$this->group(['namespace' => 'Admin\Painel', 'prefix' => 'admin/painel'], function() {
+$this->group(['namespace' => 'Admin\Painel', 'prefix' => 'admin/painel', 'middleware' => 'auth'], function() {
     $this->get('', 'PainelController@index')->name('painel');
 
 });
 
 $this->group(['namespace' => 'Client', 'prefix' => 'pedidos/', 'middleware' => 'auth'], function() {
+
+    $this->get('configuracoes', 'AddressController@config')->name('config.client');
+    $this->get('configuracoes/end', 'AddressController@configEnd')->name('end.config');
+    $this->get('endereco/novo', 'AddressController@create')->name('end.create');
+    $this->post('endereco/novo', 'AddressController@endPost')->name('end.store');
+    
+    
+
     $this->get('', 'PedidoController@index')->name('pedidos.index');
     $this->get('store', 'PedidoController@store')->name('pedidos.store');
     $this->get('create', 'PedidoController@create')->name('pedidos.create');
@@ -46,5 +56,9 @@ $this->group(['namespace' => 'Client', 'prefix' => 'pedidos/', 'middleware' => '
 
     $this->get('create/{id}', 'PedidoController@productsCategory')->name('products.category');
 
+    
+
 });
+
+$this->get('/', 'Site\SiteController@index')->name('site');
 

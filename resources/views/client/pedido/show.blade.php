@@ -1,4 +1,4 @@
-@extends('templates.client.template')
+@extends('templates.template')
 
 @section('title', 'Pedidos')
 

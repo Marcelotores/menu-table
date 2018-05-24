@@ -1,10 +1,12 @@
-@extends('templates.admin.template')
+@extends('templates.template')
 
 @section('title', 'Admin')
 
 @section('content')
 
     <h3>Editando produto</h3>
+
+    @include('includes.alerts')
 
     <form action="{{ route('categorias.update', $category->id) }}" method="POST">
 
